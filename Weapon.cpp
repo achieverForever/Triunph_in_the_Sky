@@ -56,7 +56,7 @@ void Weapon::update(Ogre::Real timeElapsed)
 			}else{
 				bullet->mActive = false;
 			}
-		}else		// Bullet inactive, kill it
+		}else		// 子弹处于非活动状态，删除
 		{
 			mBBS->removeBillboard(i);
 			it = mBullets.erase(it);
@@ -74,7 +74,7 @@ void Weapon::update(Ogre::Real timeElapsed)
 
 void Weapon::targetHit(std::string targetName)
 {
-	// 根据MovableObject的Name，减少该Object的生命值(???)
+	// 根据MovableObject的Name，减少该Object的生命值
 	if (targetName != "")
 	{
 		Ogre::Entity* ent = mSceneMgr->getEntity(targetName);

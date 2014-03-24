@@ -63,10 +63,9 @@ void FSGame::createScene()
 	//--------------------------------------------------------------------------
 
 	// 天空盒
-//	mSceneMgr->setSkyDome(true, "Examples/CloudySky", 5, 8, 5000, false);
 	mSceneMgr->setSkyBox(true, "Examples/MorningSkyBox", 6000, false);
 
-	// Aircraft
+	// 飞机
 	Ogre::Entity* ent = mSceneMgr->createEntity("Aircraft", "AircraftNew.mesh");
 	
 	Ogre::SceneNode* node = mSceneMgr->createSceneNode("Node1");
@@ -91,7 +90,6 @@ void FSGame::createScene()
 	mAircraft = new Aircraft(node, Ogre::Real(0.0f), Ogre::Real(0.0f), Ogre::Vector3::NEGATIVE_UNIT_Z, Ogre::Vector3(1638, 50, 2116), Ogre::Real(50), 100, 100, mSceneMgr, 10);
 
 	mCamera->setFixedYawAxis(true);
-//	mAircraft->mCamNode1->attachObject(mCamera);
 
 	// 爆炸效果和着火效果的粒子系统
 	mPartSystem = mSceneMgr->createParticleSystem("explosions", "explosionTemplate");
@@ -113,9 +111,6 @@ void FSGame::destroyScene()
 //--------------------------------------------------------------------------
 void FSGame::setupView()
 {
-/*
-	mCamera->setPosition(Ogre::Vector3(1638, 50, 2116));
-	mCamera->lookAt(Ogre::Vector3(1963, 50, 1660));*/
 	mCamera->setNearClipDistance(0.1);
 	mCamera->setFarClipDistance(50000);
 
@@ -125,8 +120,6 @@ void FSGame::setupView()
 	}
 }
 
-// FrameListener
-//--------------------------------------------------------------------------
 void FSGame::createFrameListener()
 {
 	BaseApplication::createFrameListener();
@@ -135,9 +128,7 @@ void FSGame::createFrameListener()
 	mInfoLabel = mTrayMgr->createLabel(OgreBites::TrayLocation::TL_TOP, "TInfo", "", 350);
 
 }
-//--------------------------------------------------------------------------
 
-//--------------------------------------------------------------------------
 bool FSGame::frameRenderingQueued(const Ogre::FrameEvent& evt)
 {
 	bool ret = BaseApplication::frameRenderingQueued(evt);
@@ -241,7 +232,7 @@ bool FSGame::frameRenderingQueued(const Ogre::FrameEvent& evt)
 	}
 
 	// 更新所有子弹的状态
-	mAircraft->weapon->update(/*evt.timeSinceLastFrame*/evt.timeSinceLastFrame);
+	mAircraft->weapon->update(evt.timeSinceLastFrame);
 
 	static bool flag = true;
 	if (flag)
@@ -258,8 +249,6 @@ bool FSGame::frameRenderingQueued(const Ogre::FrameEvent& evt)
 	return ret && mContinue;
 }
 
-//keyPressed
-//--------------------------------------------------------------------------
 bool FSGame::keyPressed( const OIS::KeyEvent &e )
 {
 	switch(e.key)
@@ -297,8 +286,6 @@ bool FSGame::keyPressed( const OIS::KeyEvent &e )
 	return true;
 }
 
-//keyReleased
-//--------------------------------------------------------------------------
 bool FSGame::keyReleased( const OIS::KeyEvent &e )
 {	
 	switch(e.key)
@@ -325,8 +312,6 @@ bool FSGame::keyReleased( const OIS::KeyEvent &e )
 	return true;
 }
 
-// Terrains
-//--------------------------------------------------------------------------
 void FSGame::defineTerrain(long x, long y)
 {
 	Ogre::String filename = mTerrainGroup->generateFilename(x, y);	// 每一个Terrain都会生成一个.dat文件
@@ -343,7 +328,7 @@ void FSGame::defineTerrain(long x, long y)
 	}
 
 }
-//--------------------------------------------------------------------------
+
 void FSGame::getTerrainImage(bool flipX, bool flipY, Ogre::Image& img)
 {
 	img.load("terrain.png", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
@@ -356,7 +341,7 @@ void FSGame::getTerrainImage(bool flipX, bool flipY, Ogre::Image& img)
 		img.flipAroundY();
 	}
 }
-//--------------------------------------------------------------------------
+
 void FSGame::initBlendMaps(Ogre::Terrain* terrain)
 {
 	// 根据地形某点的高度计算该点处的融合因子（ps：我们用了三层layer，每层一个texture，所以有两个BlendMap）
@@ -390,7 +375,7 @@ void FSGame::initBlendMaps(Ogre::Terrain* terrain)
 	blendMap0->update();
 	blendMap1->update();
 }
-//--------------------------------------------------------------------------
+
 void FSGame::configureTerrainDefaults(Ogre::Light* light)
 {
 	// 配置Terrains的全局设置

@@ -25,8 +25,6 @@ public:
 
 	Weapon * weapon;
 
-	// Constructors and Destructors
-	//--------------------------------------------------------------------------
 	Aircraft(Ogre::SceneNode* node, Ogre::Real acc, Ogre::Real speed, 
 		Ogre::Vector3 direction, Ogre::Vector3 position, 
 		Ogre::Real height, Ogre::Real energy, Ogre::Real life, Ogre::SceneManager* sceneMgr, int bulletNum)
@@ -79,7 +77,6 @@ public:
 	Ogre::Real Life() const { return mLife; }
 	void Life(Ogre::Real val) { mLife = val; }
 	
-	//
 	bool isUp() const { return isup; }
 
 	bool isDown() const { return isdown; }
@@ -87,8 +84,7 @@ public:
 	bool isLeft() const { return isleft; }
 
 	bool isRight() const { return isright; }
-	// ¿ØÖÆ·É»ú
-	//--------------------------------------------------------------------------
+
 	void pitch(Ogre::Real angle);
 	void roll(Ogre::Real angle);
 	void yaw(Ogre::Real angle);

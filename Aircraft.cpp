@@ -130,7 +130,6 @@ void Aircraft::move()
 {
 	assert(mNode);
 	mNode->translate(mDirection * mSpeed, Ogre::Node::TS_LOCAL);
-//	mPosition = mPosition + mDirection * mSpeed;
 	mPosition = mNode->getPosition();
 }
 
